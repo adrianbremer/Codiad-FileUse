@@ -1,5 +1,4 @@
 #File Use
-
 This plugin keeps track of which files are currently in use.
 
 # Installation
