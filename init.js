@@ -1,3 +1,9 @@
+/*
+*  Copyright (c) Codiad & RustyGumbo, distributed
+*  as-is and without warranty under the MIT License. See
+*  [root]/license.txt for more. This information must remain intact.
+*/
+
 (function(global, $){
     //Define core variables.
     var codiad = global.codiad,
@@ -18,37 +24,35 @@
         dialog: curpath + 'dialog.php',
         //Initialization function.
         init: function() {
-            var original_method = codiad.collaborative.sendHeartbeat;
-
-            amplify.subscribe("active.onFocus", function(filename) {
-                codiad.FileUse.getRegisteredUsers(filename);
+            var _this = this;
+            
+            //Subscribe to the active.onFocus event to execute on tab focus.
+            amplify.subscribe("active.onFocus", function(path) {
+                _this.getUserCount(path);
             });
         },
-        //Shared method to get all the users registered on the current file.
-        getRegisteredUsers: function(filename) {
+        //Get the count of users registered on the file.
+        getUserCount: function(path) {
             var _this = this;
-            $.post(
-                _this.controller,
-                { action: 'getRegisteredUsers', filename: filename },
-                function (data) {
-                    var responseData = codiad.jsend.parse(data);
-
-                    if(responseData.users.length > 0) {
-                        if($("#users").length === 0) {
-                            $("#current-mode").before('<a id="users" class="ico-wrapper"><span class="icon-user"></span>' + responseData.users.length + ' User(s)</a><div class="divider"></div>');
-                            $("#users").click(function() {
-                                codiad.modal.load(400, _this.dialog + '?action=users&filename=' + filename);
-                            });
-                        }
-                    } else {
-                        $("#users").next().remove();
-                        $("#users").remove();
-                    }
-                }
-            );
-        },
-        openSettings: function() {
-            codiad.modal.load(400, this.dialog + '?action=settings');
+            
+			$.get(
+				_this.controller + '?action=usercount&path=' + path,
+				function(data) {
+					var /* Object */ responseData = codiad.jsend.parse(data);
+					
+					//Remove the div to restore it.
+					$("#users").remove();
+					
+					//Create the the div.
+                    $("#current-mode").before('<span id="users" title="Other users viewing this file."><a class="ico-wrapper"><span class="icon-user"></span>' + responseData.count + ' User(s)</a><div class="divider"></div></span>');
+                    
+                    //Hook the click event to show the active.check() message.
+                    $("#users").click(function() {
+                    	_this.getUserCount(path);
+                        codiad.active.check(path);
+					});
+				}
+			);
         }
     };
 })(this, jQuery);

@@ -1,5 +1,5 @@
 #File Use
-This plugin keeps track of which files are currently in use.
+This plugin shows the users currently viewing a file on the bottom bar. Click on it to refresh and show the usernames.
 
 # Installation
 

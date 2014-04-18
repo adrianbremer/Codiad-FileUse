@@ -1,11 +1,6 @@
 [{
     "author" : "RustyGumbo",
-    "version": "0.1",
+    "version": "1.0",
     "name"   : "FileUse",
-    "url"    : "https://github.com/RustyGumbo/Codiad-FileUse.git",
-    "rightbar" : [{
-        "action" : "codiad.FileUse.openSettings();",
-        "icon" : "icon-eye",
-        "title" : "File Use"
-    }]
+    "url"    : "https://github.com/RustyGumbo/Codiad-FileUse.git"
 }]
