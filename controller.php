@@ -7,7 +7,7 @@
     */
 
     require_once('../../common.php');
-    require_once('class.FileUse.php');
+    require_once('class.fileuse.php');
 
     /* Object */ $FileUse = new FileUse();
 
