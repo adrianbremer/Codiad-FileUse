@@ -1,5 +1,5 @@
 #File Use
-This plugin shows the users currently viewing a file on the bottom bar. Click on it to refresh and show the usernames.
+This plugin shows the users currently viewing a file on the bottom bar. The count is updated every 3 seconds, the user can click on it to show the usernames.
 
 # Installation
 

@@ -14,9 +14,9 @@
         // PROPERTIES
         //////////////////////////////////////////////////////////////////
     
-        public /* String */ $username    = "";
-        public /* String */ $path        = "";
-        public /* String */ $new_path    = "";
+        public /* String */ $username   = "";
+        public /* String */ $path       = "";
+        public /* String */ $new_path   = "";
         public /* Array */ $actives     = "";
     
         //////////////////////////////////////////////////////////////////

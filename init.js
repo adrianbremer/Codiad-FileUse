@@ -20,17 +20,36 @@
     codiad.FileUse = {
         //Controller path.
         controller: curpath + 'controller.php',
+        
         //Dialog path.
         dialog: curpath + 'dialog.php',
+        
+        //User check interval
+        interval: 3000,
+        
         //Initialization function.
         init: function() {
             var _this = this;
+            
+			//Create the the div.
+            $("#editor-bottom-bar").append('<div id="users" title="Other users viewing this file."><div class="divider"></div><a class="ico-wrapper"><span class="icon-users"></span><span id="user_count">?</span> User(s)</a></div>');
+            
+            //Hook the click event to show the users on the file.
+            $("#users").click(function() {
+                codiad.active.check(codiad.active.getPath());
+            });
             
             //Subscribe to the active.onFocus event to execute on tab focus.
             amplify.subscribe("active.onFocus", function(path) {
                 _this.getUserCount(path);
             });
+			
+			//Timer to check for user count.
+            setInterval(function() {
+                _this.getUserCount(codiad.active.getPath());
+            }, _this.interval);
         },
+        
         //Get the count of users registered on the file.
         getUserCount: function(path) {
             var _this = this;
@@ -40,17 +59,7 @@
 				function(data) {
 					var /* Object */ responseData = codiad.jsend.parse(data);
 					
-					//Remove the div to restore it.
-					$("#users").remove();
-					
-					//Create the the div.
-                    $("#current-mode").before('<span id="users" title="Other users viewing this file."><a class="ico-wrapper"><span class="icon-user"></span>' + responseData.count + ' User(s)</a><div class="divider"></div></span>');
-                    
-                    //Hook the click event to show the active.check() message.
-                    $("#users").click(function() {
-                    	_this.getUserCount(path);
-                        codiad.active.check(path);
-					});
+					$("#user_count").text(responseData.count);
 				}
 			);
         }
