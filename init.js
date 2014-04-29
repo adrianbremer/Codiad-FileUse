@@ -31,7 +31,7 @@
         init: function() {
             var _this = this;
             
-			//Create the the div.
+            //Create the the div.
             $("#editor-bottom-bar").append('<div id="users" title="Other users viewing this file."><div class="divider"></div><a class="ico-wrapper"><span class="icon-users"></span><span id="user_count">?</span> User(s)</a></div>');
             
             //Hook the click event to show the users on the file.
@@ -44,7 +44,7 @@
                 _this.getUserCount(path);
             });
 			
-			//Timer to check for user count.
+            //Timer to check for user count.
             setInterval(function() {
                 _this.getUserCount(codiad.active.getPath());
             }, _this.interval);
@@ -54,14 +54,14 @@
         getUserCount: function(path) {
             var _this = this;
             
-			$.get(
-				_this.controller + '?action=usercount&path=' + path,
-				function(data) {
-					var /* Object */ responseData = codiad.jsend.parse(data);
-					
-					$("#user_count").text(responseData.count);
-				}
-			);
+            $.get(
+                _this.controller + '?action=usercount&path=' + path,
+                function(data) {
+                    var /* Object */ responseData = codiad.jsend.parse(data);
+
+                    $("#user_count").text(responseData.count);
+                }
+            );
         }
     };
 })(this, jQuery);
