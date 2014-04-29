@@ -40,7 +40,7 @@
         public /*JSON */ function GetUserCount(){
             /* Array */ $cur_users  = array();
             
-            foreach($this->actives as $active=>$data){
+            foreach($this->actives as $data){
                 if(is_array($data) && isset($data['username']) && $data['username']!=$this->username && $data['path']==$this->path){
                     $cur_users[] = $data['username'];
                 }
